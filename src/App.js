@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import Container from 'react-bootstrap/Container';
-import Button from 'react-bootstrap/Button';
 import ListGroup from 'react-bootstrap/ListGroup';
+import styled from 'styled-components';
 import './App.css';
 
 const baseUrl = 'https://api.datamuse.com';
@@ -14,6 +14,17 @@ const getWord = async (wordPart) => {
   console.log(data);
   return data;
 };
+
+const StyledButton = styled.button`
+  background: ${(props) => (props.primary ? 'palevioletred' : 'white')};
+  color: ${(props) => (props.primary ? 'white' : 'palevioletred')};
+
+  font-size: 1em;
+  margin: 1em;
+  padding: 0.25em 1em;
+  border: 2px solid palevioletred;
+  border-radius: 3px;
+`;
 
 function App() {
   const [wordToSearch, setWordToSearch] = useState('soup');
@@ -55,9 +66,13 @@ function App() {
         />
       </div>
 
-      <Button variant="flat" size="xxl" onClick={() => search(wordToSearch)}>
+      <StyledButton
+        variant="flat"
+        size="xxl"
+        onClick={() => search(wordToSearch)}
+      >
         Click me
-      </Button>
+      </StyledButton>
     </Container>
   );
 }
