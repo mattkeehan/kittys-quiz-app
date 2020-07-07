@@ -5,9 +5,19 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import styled from 'styled-components';
 import './App.css';
 
+interface ButtonStyled {
+  primary?: boolean;
+  variant: string;
+  size: string;
+}
+
+interface Word {
+  word: string;
+}
+
 const baseUrl = 'https://api.datamuse.com';
 
-const getWord = async (wordPart) => {
+const getWord = async (wordPart: string) => {
   const url = `${baseUrl}/sug?s=${wordPart}`;
   const response = await fetch(url);
   const data = await response.json();
@@ -15,7 +25,7 @@ const getWord = async (wordPart) => {
   return data;
 };
 
-const StyledButton = styled.button`
+const StyledButton = styled.button<ButtonStyled>`
   background: ${(props) => (props.primary ? 'palevioletred' : 'white')};
   color: ${(props) => (props.primary ? 'white' : 'palevioletred')};
 
@@ -27,10 +37,10 @@ const StyledButton = styled.button`
 `;
 
 function App() {
-  const [wordToSearch, setWordToSearch] = useState('soup');
-  const [words, setWords] = useState(0);
+  const [wordToSearch, setWordToSearch] = useState<string>('soup');
+  const [words, setWords] = useState<Array<Word>>([]);
 
-  const search = (word) => {
+  const search = (word: string) => {
     async function fetchMyAPI() {
       const resp = await getWord(word);
       setWords(resp);
@@ -39,10 +49,11 @@ function App() {
     fetchMyAPI();
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => search(wordToSearch), []);
 
-  const searchOnEnter = (e) => {
-    if (e.key === 'Enter') {
+  const searchOnEnter = (key: String) => {
+    if (key === 'Enter') {
       search(wordToSearch);
     }
   };
@@ -68,7 +79,7 @@ function App() {
           type="text"
           value={wordToSearch}
           onChange={(e) => setWordToSearch(e.target.value)}
-          onKeyDown={searchOnEnter}
+          onKeyDown={(e) => searchOnEnter(e.key)}
         />
       </p>
 
