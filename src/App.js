@@ -30,9 +30,9 @@ function App() {
   const [wordToSearch, setWordToSearch] = useState('soup');
   const [words, setWords] = useState(0);
 
-  const search = (wordToSearch) => {
+  const search = (word) => {
     async function fetchMyAPI() {
-      const resp = await getWord(wordToSearch);
+      const resp = await getWord(word);
       setWords(resp);
     }
 
@@ -40,6 +40,12 @@ function App() {
   };
 
   useEffect(() => search(wordToSearch), []);
+
+  const searchOnEnter = (e) => {
+    if (e.key === 'Enter') {
+      search(wordToSearch);
+    }
+  };
 
   return (
     <Container className="p-3">
@@ -56,22 +62,22 @@ function App() {
           ))}
       </ListGroup>
 
-      <p>Your word is {wordToSearch}</p>
-
-      <div>
+      <p>
+        Let's search for{' '}
         <input
           type="text"
           value={wordToSearch}
           onChange={(e) => setWordToSearch(e.target.value)}
+          onKeyDown={searchOnEnter}
         />
-      </div>
+      </p>
 
       <StyledButton
         variant="flat"
         size="xxl"
         onClick={() => search(wordToSearch)}
       >
-        Click me
+        Search!
       </StyledButton>
     </Container>
   );
