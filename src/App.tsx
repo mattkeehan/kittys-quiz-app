@@ -5,7 +5,10 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Nav from 'react-bootstrap/Nav';
 import styled from 'styled-components';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import getWord from './services/getWord';
 
 interface ButtonStyled {
@@ -16,6 +19,11 @@ interface ButtonStyled {
 
 interface Word {
   word: string;
+}
+
+interface Tab {
+  justify?: boolean;
+  variant: string;
 }
 
 const StyledButton = styled.button<ButtonStyled>`
@@ -50,7 +58,7 @@ function App() {
 
   return (
     <Router>
-      <Nav>
+      <Nav justify variant="tabs">
         <Nav.Item>
           <Link to="/">Home</Link>
         </Nav.Item>
