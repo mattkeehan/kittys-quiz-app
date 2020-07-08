@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import Container from 'react-bootstrap/Container';
 import ListGroup from 'react-bootstrap/ListGroup';
+import Nav from 'react-bootstrap/Nav';
 import styled from 'styled-components';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import './App.css';
 import getWord from './services/getWord';
 
@@ -47,36 +49,53 @@ function App() {
     key === 'Enter' && search(wordToSearch);
 
   return (
-    <Container className="p-3">
-      <Jumbotron>
-        <h1 className="header">Guess the completed word</h1>
-      </Jumbotron>
+    <Router>
+      <Nav>
+        <Nav.Item>
+          <Link to="/">Home</Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Link to="/about">About</Link>
+        </Nav.Item>
+      </Nav>
+      <Switch>
+        <Route path="/about">
+          <div>This is the about page!</div>
+        </Route>
+        <Route path="/">
+          <Container className="p-3">
+            <Jumbotron>
+              <h1 className="header">Guess the completed word</h1>
+            </Jumbotron>
 
-      <ListGroup>
-        {words.length &&
-          words.map((item, key) => (
-            <ListGroup.Item key={key}>{item.word}</ListGroup.Item>
-          ))}
-      </ListGroup>
+            <ListGroup>
+              {words.length &&
+                words.map((item, key) => (
+                  <ListGroup.Item key={key}>{item.word}</ListGroup.Item>
+                ))}
+            </ListGroup>
 
-      <p>
-        Let's search for{' '}
-        <input
-          type="text"
-          value={wordToSearch}
-          onChange={(e) => setWordToSearch(e.target.value)}
-          onKeyDown={(e) => searchOnEnter(e.key)}
-        />
-      </p>
+            <p>
+              Let's search for{' '}
+              <input
+                type="text"
+                value={wordToSearch}
+                onChange={(e) => setWordToSearch(e.target.value)}
+                onKeyDown={(e) => searchOnEnter(e.key)}
+              />
+            </p>
 
-      <StyledButton
-        variant="flat"
-        size="xxl"
-        onClick={() => search(wordToSearch)}
-      >
-        Search!
-      </StyledButton>
-    </Container>
+            <StyledButton
+              variant="flat"
+              size="xxl"
+              onClick={() => search(wordToSearch)}
+            >
+              Search!
+            </StyledButton>
+          </Container>
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
