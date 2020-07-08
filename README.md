@@ -1,5 +1,11 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## About
+
+A React app with Hooks, Typescript, styled components, Prettier, React Bootstrap. 
+
+This is Kitty's word-guessing quiz.
+
 ## Available Scripts
 
 In the project directory, you can run:
