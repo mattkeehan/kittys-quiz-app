@@ -4,6 +4,7 @@ import Container from 'react-bootstrap/Container';
 import ListGroup from 'react-bootstrap/ListGroup';
 import styled from 'styled-components';
 import './App.css';
+import getWord from './services/getWord';
 
 interface ButtonStyled {
   primary?: boolean;
@@ -14,16 +15,6 @@ interface ButtonStyled {
 interface Word {
   word: string;
 }
-
-const baseUrl = 'https://api.datamuse.com';
-
-const getWord = async (wordPart: string) => {
-  const url = `${baseUrl}/sug?s=${wordPart}`;
-  const response = await fetch(url);
-  const data = await response.json();
-  console.log(data);
-  return data;
-};
 
 const StyledButton = styled.button<ButtonStyled>`
   background: ${(props) => (props.primary ? 'palevioletred' : 'white')};
@@ -52,11 +43,8 @@ function App() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => search(wordToSearch), []);
 
-  const searchOnEnter = (key: String) => {
-    if (key === 'Enter') {
-      search(wordToSearch);
-    }
-  };
+  const searchOnEnter = (key: String) =>
+    key === 'Enter' && search(wordToSearch);
 
   return (
     <Container className="p-3">
