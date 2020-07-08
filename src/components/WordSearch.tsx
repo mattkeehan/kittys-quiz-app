@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import Container from 'react-bootstrap/Container';
 import ListGroup from 'react-bootstrap/ListGroup';
 import styled from 'styled-components';
+import { addTodo } from '../store/actions';
 import getWord from '../services/getWord';
 
 interface ButtonStyled {
@@ -29,11 +31,14 @@ const StyledButton = styled.button<ButtonStyled>`
 export default function WordSearch() {
   const [wordToSearch, setWordToSearch] = useState<string>('soup');
   const [words, setWords] = useState<Array<Word>>([]);
+  const dispatch = useDispatch();
 
   const search = (word: string) => {
     async function fetchMyAPI() {
       const resp = await getWord(word);
       setWords(resp);
+      console.log('dispatch');
+      dispatch(addTodo(wordToSearch));
     }
 
     fetchMyAPI();
