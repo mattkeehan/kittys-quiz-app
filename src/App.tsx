@@ -52,8 +52,6 @@ function App() {
         <h1 className="header">Guess the completed word</h1>
       </Jumbotron>
 
-      {/* <div>{JSON.stringify(words)}</div> */}
-
       <ListGroup>
         {words.length &&
           words.map((item, key) => (
