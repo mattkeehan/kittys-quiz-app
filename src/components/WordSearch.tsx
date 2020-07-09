@@ -4,7 +4,7 @@ import Jumbotron from 'react-bootstrap/Jumbotron';
 import Container from 'react-bootstrap/Container';
 import ListGroup from 'react-bootstrap/ListGroup';
 import styled from 'styled-components';
-import { addTodo, updateWords } from '../store/actions';
+import { updateSearchTerm, updateWords } from '../store/actions';
 import getWord from '../services/getWord';
 
 interface ButtonStyled {
@@ -37,8 +37,7 @@ export default function WordSearch() {
     async function fetchMyAPI() {
       const wordsFound = await getWord(word);
       setWords(wordsFound);
-      console.log('dispatch');
-      dispatch(addTodo(wordToSearch));
+      dispatch(updateSearchTerm(wordToSearch));
       dispatch(updateWords(wordsFound));
     }
 
