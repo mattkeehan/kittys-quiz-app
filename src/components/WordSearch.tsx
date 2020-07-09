@@ -15,6 +15,7 @@ interface ButtonStyled {
 
 interface Word {
   word: string;
+  score: number;
 }
 
 const StyledButton = styled.button<ButtonStyled>`
@@ -26,6 +27,21 @@ const StyledButton = styled.button<ButtonStyled>`
   padding: 0.25em 1em;
   border: 2px solid palevioletred;
   border-radius: 3px;
+`;
+
+const StyledJumbotron = styled(Jumbotron)`
+  color: forestgreen;
+  font-size: 1em;
+  margin: 1em;
+  padding: 0.25em 1em;
+  border: 2px solid midnightblue;
+  border-radius: 3px;
+  background-color: #b0cfef;
+  font-family: monospace;
+`;
+
+const StyledHeader = styled.h1`
+  text-align: center;
 `;
 
 export default function WordSearch() {
@@ -52,14 +68,16 @@ export default function WordSearch() {
 
   return (
     <Container className="p-3">
-      <Jumbotron>
-        <h1 className="header">Guess the completed word</h1>
-      </Jumbotron>
+      <StyledJumbotron>
+        <StyledHeader className="header">Guess the completed word</StyledHeader>
+      </StyledJumbotron>
 
       <ListGroup>
         {words.length &&
           words.map((item, key) => (
-            <ListGroup.Item key={key}>{item.word}</ListGroup.Item>
+            <ListGroup.Item key={key}>
+              {item.word} - {item.score}
+            </ListGroup.Item>
           ))}
       </ListGroup>
 
